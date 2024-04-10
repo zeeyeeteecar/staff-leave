@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Tb_staff_info {
+  staff_ID     Int    @id @default(autoincrement())
+  userName     String @db.VarChar(11)
+  firstName    String @db.VarChar(11)
+  lastName     String @db.VarChar(11)
+  staffO2B2_ID Int
+
+   tb_staff_leave Tb_staff_leave[]
+}
+
+model Tb_staff_leave {
+  Leave_ID       Int      @id @default(autoincrement())
+  staffID        Int
+  staffLeaveType String   @db.VarChar(11)
+  staffLeaveDate DateTime @db.Date
+
+  staffInfo   Tb_staff_info @relation(fields: [staffID], references: [staff_ID])
+  
+}
+
+model Tb_state_holiday {
+  holiday_ID   Int    @id @default(autoincrement())
+  holidayTitle String @db.VarChar(50)
+  holidayDate  String @db.VarChar(10)
+  holidayYear  String @db.VarChar(4)
+}
+
+model Tb_state_holiday_copy {
+  holiday_ID   Int      @id @default(autoincrement())
+  holidayTitle String   @db.VarChar(50)
+  holidayDate  DateTime @db.Date
+  holidayYear  String   @db.VarChar(4)
+}
