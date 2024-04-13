@@ -10,7 +10,7 @@ export default async function staff() {
       firstName: true,
       lastName: true,
       staffO2B2_ID: true,
-      tb_staff_leave: true,
+
     },
   });
 
