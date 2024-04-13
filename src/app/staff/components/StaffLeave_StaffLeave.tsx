@@ -50,6 +50,9 @@ export default function StaffLeave_StaffLeave({
 
   return (
     <div className="h-full flex flex-col space-y-2 border-8">
+      {individualStaffLeaveList.length ===0 ? (
+        <div className="h-full w-full grid place-items-center">No Record</div>
+      ) : null}
       <div>
         <Toaster />
       </div>

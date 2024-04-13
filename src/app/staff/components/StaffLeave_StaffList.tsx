@@ -2,6 +2,7 @@
 import React from "react";
 import { prisma } from "@/lib/prisma";
 import moment from "moment-timezone";
+import { IoAddCircleOutline } from "react-icons/io5";
 import StaffLeave_StaffLeave from "./StaffLeave_StaffLeave";
 
 export default function staff({
@@ -14,10 +15,13 @@ export default function staff({
     individualStaffLeaveList,
     setIndividualStaffLeaveList,
   ] = React.useState([]);
+
+  const [disableAddLeave, setDisableAddLeave] = React.useState(true);
   //const staffLeave_List = await fetchData_staffLeave();
 
   async function handleClick_Select_Staff(e: any) {
     setIndividualStaffLeaveList([]);
+    setDisableAddLeave(true);
     const userID: string = e.target.value.toString();
     const fetch_individualStaffLeave = await fetchData_IndividualStaffLeave(
       userID
@@ -63,19 +67,16 @@ export default function staff({
                   />
 
                   <div
-                    className="hover:bg-red-50 flex items-center justify-between px-4 py-2 border-0 bg-slate-100 
+                    className="flex flex-row h-full  hover:bg-red-50 px-4  space-x-2 py-2 border-2 bg-slate-100 
                   rounded-lg cursor-pointer text-sm border-gray-200 group peer-checked:border-red-500 peer-checked:bg-red-100"
                   >
-                    <h2 className="font-medium text-gray-700">
-                      {staff.userID} - {staff.Fname} - {staff.Lname} -{}
-                    </h2>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-9 h-9 text-red-600 invisible group-[.peer:checked+&]:visible"
+                      className="w-9 h-9 float-left text-red-600 invisible group-[.peer:checked+&]:visible"
                     >
                       <path
                         strokeLinecap="round"
@@ -83,6 +84,20 @@ export default function staff({
                         d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
+
+                    <div className=" h-full float-left m-auto font-medium text-gray-700 border-0 border-red-300">
+                      {staff.userID} - {staff.Fname} - {staff.Lname} -{}
+                    </div>
+
+                    <div className="border-0 border-red-300 grow flow-root justify-center  ">
+                      <button
+                        type="button"
+                        className="w-[30px] h-[30px] float-end  text-red-600 invisible group-[.peer:checked+&]:visible "
+                        onClick={() => alert("add new")}
+                      >
+                        <IoAddCircleOutline className="w-8 h-8" />
+                      </button>
+                    </div>
                   </div>
                 </label>
               </div>
@@ -112,12 +127,10 @@ export default function staff({
               }
             )} */}
 
-          {individualStaffLeaveList ? (
-            <StaffLeave_StaffLeave
-              individualStaffLeaveList={individualStaffLeaveList}
-              handle_StaffLeave_Save={handle_StaffLeave_Save}
-            />
-          ) : null}
+          <StaffLeave_StaffLeave
+            individualStaffLeaveList={individualStaffLeaveList}
+            handle_StaffLeave_Save={handle_StaffLeave_Save}
+          />
         </div>
       </div>
     </div>
