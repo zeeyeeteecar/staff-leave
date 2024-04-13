@@ -32,7 +32,7 @@ export default function DayOvMonth_Row({
                   <div
                     key={key}
                     className={
-                      "w-[40px] border border-red-100 m-2 flex items-center justify-center text-slate-400 " +
+                      "w-[40px] border-0 border-red-100 m-2 flex items-center justify-center text-slate-400 " +
                       dayCellBgColor(item, allHolidays, allStaffLeave)
                     }
                   >
