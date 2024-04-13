@@ -17,6 +17,7 @@ export default function staff({
   //const staffLeave_List = await fetchData_staffLeave();
 
   async function handleClick_Select_Staff(e: any) {
+    setIndividualStaffLeaveList([]);
     const userID: string = e.target.value.toString();
     const fetch_individualStaffLeave = await fetchData_IndividualStaffLeave(
       userID
@@ -93,7 +94,7 @@ export default function staff({
         id="staff-leave-block"
         className="w-3/10 grow border border-slate-100 text-slate-600  "
       >
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 h-full">
           {/* <div className=" text-sm">
             {JSON.stringify(individualStaffLeaveList)}
           </div> */}
