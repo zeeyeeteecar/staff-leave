@@ -15,16 +15,15 @@ export default async function page() {
   const staffLeave = await fetchData_staffLeave();
 
   async function handle_StaffLeave_Save(leaveInfo: any) {
-
     "use server";
-    //console.log(leaveInfo)
+    console.log(leaveInfo)
     const res = await prisma.tb_staff_leave.update({
       where: {
-        Leave_ID: Number(leaveInfo.Leave_ID),
+        Leave_ID: Number(leaveInfo.leave_ID),
       },
       data: {
         staffLeaveType: leaveInfo.leaveType,
-        staffLeaveDate: new Date(leaveInfo.LeaveDate),
+        staffLeaveDate: new Date(leaveInfo.leaveDate),
         staffLeaveNote: leaveInfo.leaveNote,
       },
     });

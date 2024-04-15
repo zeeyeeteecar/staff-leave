@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import moment from "moment-timezone";
 import { IoAddCircleOutline } from "react-icons/io5";
 import StaffLeave_StaffLeave from "./StaffLeave_StaffLeave";
+import StaffLeave_StaffLeave_Month from "./StaffLeave_StaffLeave_Month";
 
 export default function staff({
   _staffList,
@@ -16,11 +17,14 @@ export default function staff({
     setIndividualStaffLeaveList,
   ] = React.useState([]);
 
+  const [staffID, setStaffID] = React.useState("");
+
   const [disableAddLeave, setDisableAddLeave] = React.useState(true);
   //const staffLeave_List = await fetchData_staffLeave();
 
   async function handleClick_Select_Staff(e: any) {
     setIndividualStaffLeaveList([]);
+    setStaffID("");
     setDisableAddLeave(true);
     const userID: string = e.target.value.toString();
     const fetch_individualStaffLeave = await fetchData_IndividualStaffLeave(
@@ -46,7 +50,7 @@ export default function staff({
     <div className="w-full h-full flex flex-row flex-1 border-4 border-red-300 p-2 space-x-2">
       <div
         id="staff-list-block"
-        className="w-1/10 h-full overflow-y-auto border-2 border-blue-300 "
+        className="w-[400px] h-full overflow-y-auto border-2 border-blue-300 "
       >
         {/* {JSON.stringify(staffLeave_List)} */}
         {_staffList &&
@@ -92,8 +96,11 @@ export default function staff({
                     <div className="border-0 border-red-300 grow flow-root justify-center  ">
                       <button
                         type="button"
+                        value={staff.userID.toString()}
                         className="w-[30px] h-[30px] float-end  text-red-600 invisible group-[.peer:checked+&]:visible "
-                        onClick={() => alert("add new")}
+                        onClick={(e) =>
+                          alert("add new" + e.currentTarget.value)
+                        }
                       >
                         <IoAddCircleOutline className="w-8 h-8" />
                       </button>
@@ -107,31 +114,17 @@ export default function staff({
 
       <div
         id="staff-leave-block"
-        className="w-3/10 grow border border-slate-100 text-slate-600  "
+        className="w-[500px] border-4 border-yellow-100 text-slate-600  "
       >
-        <div className="flex flex-col gap-4 h-full">
-          {/* <div className=" text-sm">
-            {JSON.stringify(individualStaffLeaveList)}
-          </div> */}
-          {/* 
-          {individualStaffLeaveList &&
-            individualStaffLeaveList.map(
-              (individualStaffLeave: any, key: number) => {
-                return (
-                  <>
-                    <StaffLeave_StaffLeave
-                      individualStaffLeave={individualStaffLeave}
-                    />
-                  </>
-                );
-              }
-            )} */}
-
-          <StaffLeave_StaffLeave
-            individualStaffLeaveList={individualStaffLeaveList}
-            handle_StaffLeave_Save={handle_StaffLeave_Save}
-          />
-        </div>
+        <StaffLeave_StaffLeave
+          individualStaffLeaveList={individualStaffLeaveList}
+          handle_StaffLeave_Save={handle_StaffLeave_Save}
+          staffID={staffID}
+          setStaffID={setStaffID}
+        />
+      </div>
+      <div className="w-[500px] h-full border-4 border-purple-300">
+        <StaffLeave_StaffLeave_Month staffID={staffID} />
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 
 
 
-
 export async function fetchData_IndividualStaffLeave(staffID: string) {
   "use server";
   const res = await prisma.tb_staff_leave.findMany({
@@ -44,3 +43,4 @@ export async function fetchData_StaffList() {
 
   return res.json();
 }
+
