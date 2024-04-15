@@ -11,6 +11,7 @@ export default function staff({
   _staffLeaveList,
   fetchData_IndividualStaffLeave,
   handle_StaffLeave_Save,
+  fetchData_StaffLeave_CalendarMonth,
 }: any) {
   const [
     individualStaffLeaveList,
@@ -124,7 +125,10 @@ export default function staff({
         />
       </div>
       <div className="w-[500px] h-full border-4 border-purple-300">
-        <StaffLeave_StaffLeave_Month staffID={staffID} />
+        <StaffLeave_StaffLeave_Month
+          staffID={staffID}
+          individualStaffLeaveList={individualStaffLeaveList}
+        />
       </div>
     </div>
   );
