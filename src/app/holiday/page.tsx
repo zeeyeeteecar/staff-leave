@@ -38,6 +38,25 @@ async function handle_AddHoliday(data: FormData) {
   revalidatePath("/holiday");
 }
 
+///----------------------------------------------------------------
+
+async function handle_DeleteHoliday(holidayID: string) {
+  "use server";
+
+  const result = await prisma.tb_state_holiday.delete({
+    where: {
+      holiday_ID: Number(holidayID),
+    },
+  });
+
+  await prisma.$disconnect();
+  revalidatePath("/holiday");
+
+  return result;
+}
+
+///----------------------------------------------------------------
+
 export default async function page() {
   return (
     <div className="w-screen h-screen bg-slate-400 grid  place-items-center ">
@@ -53,6 +72,7 @@ export default async function page() {
                   <HolidayRow
                     holiday={holiday}
                     handle_AddHoliday={handle_AddHoliday}
+                    handle_DeleteHoliday={handle_DeleteHoliday}
                   />
                 </>
               );

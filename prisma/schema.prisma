@@ -16,10 +16,10 @@ model Tb_staff_leave {
 }
 
 model Tb_state_holiday {
-  holiday_ID   Int    @id @default(autoincrement())
-  holidayTitle String @db.VarChar(50)
-  holidayDate  String @db.VarChar(10)
-  holidayYear  String @db.VarChar(4)
+  holiday_ID   Int      @id @default(autoincrement())
+  holidayTitle String   @db.VarChar(50)
+  holidayDate  DateTime @db.Date
+  holidayYear  String   @db.VarChar(4)
 }
 
 model Tb_state_holiday_copy {

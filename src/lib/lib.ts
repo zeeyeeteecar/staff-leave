@@ -28,6 +28,8 @@ export async function fetchData_staffLeave() {
   return res;
 }
 
+//-----------------------------------------------------------------------------------------
+
 export async function fetchData_StaffList() {
   "use server";
   const res = await fetch(
@@ -43,4 +45,21 @@ export async function fetchData_StaffList() {
 
   return res.json();
 }
+
+
+//-----------------------------------------------------------------------------------------
+
+export async function fetchData_HolidayList() {
+  "use server";
+  const res = await prisma.tb_state_holiday.findMany({});
+
+  
+  if (!res) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  return res;
+}
+
+
 

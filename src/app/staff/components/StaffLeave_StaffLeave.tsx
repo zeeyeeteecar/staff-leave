@@ -54,90 +54,86 @@ export default function StaffLeave_StaffLeave({
       {individualStaffLeaveList &&
         individualStaffLeaveList.map((leaveInfo: any, key: number) => {
           return (
-            <div className="w-full flex flex-row space-x-2 border-2">
+            <div className="w-full flex flex-row space-x-2 border-0">
               <form
                 action={handle_SaveLeave}
                 method="POST"
                 className="border-6 border-orange-400"
               >
-                <div className="border-0  w-full h-[130px] flex flex-col">
-                  <div className="space-x-1 w-[400px] flex flex-row">
-                    <input
-                      type="date"
-                      name="LeaveDate"
-                      id="LeaveDate"
-                      defaultValue={
-                        leaveInfo.staffLeaveDate &&
-                        moment(leaveInfo.staffLeaveDate)
-                          .utcOffset(0)
-                          .format("YYYY-MM-DD")
-                      }
-                      onClick={(e) => {
-                        handle_Select_LeaveDate(e.currentTarget.value);
-                      }}
-                      // onChange={(e) =>
-                      //   setLeaveInfo((prevState) => ({
-                      //     ...prevState,
-                      //     staffLeaveDate: e.target.value,
-                      //   }))
-                      //}
-                      className="w-[200px] h-[50px] rounded-md border border-slate-300 bg-white py-3 px-2 text-base font-medium text-[#6B7280] outline-none placeholder-gray-300 focus:border-[#6A64F1] focus:shadow-md
+                <div className="border-0  w-full h-[60px] flex items-center space-x-3">
+                  <input
+                    type="text"
+                    name="LeaveDate"
+                    id="LeaveDate"
+                    defaultValue={
+                      leaveInfo.staffLeaveDate &&
+                      moment(leaveInfo.staffLeaveDate)
+                        .utcOffset(0)
+                        .format("YYYY-MM-DD")
+                    }
+                    onClick={(e) => {
+                      handle_Select_LeaveDate(e.currentTarget.value);
+                    }}
+                    // onChange={(e) =>
+                    //   setLeaveInfo((prevState) => ({
+                    //     ...prevState,
+                    //     staffLeaveDate: e.target.value,
+                    //   }))
+                    //}
+                    className="w-[200px] h-[50px] rounded-md border border-slate-300 bg-white py-3 px-2 text-base font-medium text-[#6B7280] outline-none placeholder-gray-300 focus:border-[#6A64F1] focus:shadow-md
                                  enabled:text-red-300 "
-                    />
+                  />
 
-                    <button
-                      id="staffID"
-                      name="staffID"
-                      type="button"
-                      className="w-[50px]  h-[50px] border hover:bg-gray-400 text-gray-800 font-bold py-2 px-2 rounded  items-center"
-                      value={leaveInfo.staff_o2b2_ID.toString()}
-                      onClick={(e) => {
-                        handle_Select_LeaveDate(e.currentTarget.value);
-                      }}
+                  <button
+                    id="staffID"
+                    name="staffID"
+                    type="button"
+                    className="w-[50px]  h-[50px] border hover:bg-gray-400 text-gray-800 font-bold py-2 px-2 rounded  items-center"
+                    value={leaveInfo.staff_o2b2_ID.toString()}
+                    onClick={(e) => {
+                      handle_Select_LeaveDate(e.currentTarget.value);
+                    }}
+                  >
+                    {" "}
+                    cal
+                  </button>
+
+                  <Dropdown_StaffLeave
+                    data_Staff_Leave_Type={data_Staff_Leave_Type}
+                    leaveInfo={leaveInfo}
+                    // setLeaveInfo={setLeaveInfo}
+                  />
+
+                  <input
+                    type="text"
+                    name="LeaveNote"
+                    id="LeaveNote"
+                    defaultValue={leaveInfo && leaveInfo.staffLeaveNote}
+                    // onChange={(e) =>
+                    //   setLeaveInfo((prevState) => ({
+                    //     ...prevState,
+                    //     staffLeaveType: e.target.value,
+                    //   }))
+                    // }
+                    className="w-[200px] h-[50px]  rounded-md border border-slate-300 bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none placeholder-gray-300 focus:border-[#6A64F1] focus:shadow-md         enabled:text-red-300 "
+                  />
+
+                  <button
+                    id="Leave_ID"
+                    name="Leave_ID"
+                    type="submit"
+                    value={leaveInfo.Leave_ID}
+                    className=" bg-slate-50 h-[50px]  w-[60px] text-slate-400 py-2 px-4 rounded inline-flex items-center hover:border-slate-400 hover:border"
+                  >
+                    <svg
+                      className="w-5 h-5  fill-slate-300 hover:fill-slate-500"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
                     >
-                      {" "}
-                      cal
-                    </button>
-
-                    <Dropdown_StaffLeave
-                      data_Staff_Leave_Type={data_Staff_Leave_Type}
-                      leaveInfo={leaveInfo}
-                      // setLeaveInfo={setLeaveInfo}
-                    />
-                  </div>
-
-                  <div className="flex flex-row">
-                    <input
-                      type="text"
-                      name="LeaveNote"
-                      id="LeaveNote"
-                      defaultValue={leaveInfo && leaveInfo.staffLeaveNote}
-                      // onChange={(e) =>
-                      //   setLeaveInfo((prevState) => ({
-                      //     ...prevState,
-                      //     staffLeaveType: e.target.value,
-                      //   }))
-                      // }
-                      className="w-[200px] h-[50px]  rounded-md border border-slate-300 bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none placeholder-gray-300 focus:border-[#6A64F1] focus:shadow-md         enabled:text-red-300 "
-                    />
-
-                    <button
-                      id="Leave_ID"
-                      name="Leave_ID"
-                      type="submit"
-                      value={leaveInfo.Leave_ID}
-                      className=" bg-slate-50 h-[50px]  w-[60px] text-slate-400 py-2 px-4 rounded inline-flex items-center hover:border-slate-400 hover:border"
-                    >
-                      <svg
-                        className="w-5 h-5  fill-slate-300 hover:fill-slate-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                      </svg>
-                      <span>{leaveInfo.Leave_ID}</span>
-                    </button>
-                  </div>
+                      <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                    </svg>
+                    <span>{leaveInfo.Leave_ID}</span>
+                  </button>
                 </div>
               </form>
             </div>
