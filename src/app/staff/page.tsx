@@ -8,12 +8,13 @@ import {
   fetchData_StaffList,
   fetchData_staffLeave,
   fetchData_IndividualStaffLeave,
-  
 } from "@/lib/lib";
 
 export default async function page() {
   const staffList = await fetchData_StaffList();
   const staffLeave = await fetchData_staffLeave();
+
+  console.log(staffList);
 
   async function handle_StaffLeave_Save(leaveInfo: any) {
     "use server";
