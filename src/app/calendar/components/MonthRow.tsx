@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import moment from "moment";
+import moment from "moment-timezone"
 
 export default function DayOvMonth_Row({
   monthTitle,
@@ -7,12 +7,15 @@ export default function DayOvMonth_Row({
   allHolidays,
   allStaffLeave,
 }: any) {
+  console.log("allHolidays", allHolidays);
+
   const listSpecificMonthDate = (month: number, year: number) =>
     new Array(31)
       .fill("")
       .map((v, i) => new Date(year, month - 1, i + 1))
       .filter((v) => v.getMonth() === month - 1);
 
+  console.log("allHolidays", allHolidays);
   // console.log(
   //   "listSpecificMonthDate, ",
   //   listSpecificMonthDate(monthTitle, yearTitle)
@@ -32,7 +35,7 @@ export default function DayOvMonth_Row({
                   <div
                     key={key}
                     className={
-                      "w-[40px] border-0 border-red-100 m-2 flex items-center justify-center text-slate-400 " +
+                      "w-[40px] border border-red-100 m-2 flex items-center justify-center text-slate-400 " +
                       dayCellBgColor(item, allHolidays, allStaffLeave)
                     }
                   >
@@ -54,8 +57,7 @@ function dayCellBgColor(
   allHolidays: any,
   allStaffLeave: any
 ) {
-  //console.log("allHolidays", allHolidays)
-  const formated_yyyyMMDD = moment(yyyyMMDD).format("YYYY-MM-DD");
+  const formated_yyyyMMDD = moment(yyyyMMDD).utcOffset(0).format("YYYY-MM-DD");
 
   const if_weekend = () => {
     return moment(yyyyMMDD).day() === 0 || moment(yyyyMMDD).day() === 6;
@@ -83,7 +85,7 @@ function dayCellBgColor(
     });
   };
 
-  let returnValue = "";
+  let returnValue = "bg-slate-50";
 
   if (if_weekend()) {
     returnValue = "bg-sky-100";

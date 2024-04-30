@@ -1,9 +1,12 @@
-"use client";
+
 import React from "react";
 import moment from "moment-timezone";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 import { data_Staff_Leave_Type } from "@/lib/data";
+
+import StaffLeave_StaffLeave_Modal_SelectDate from "./StaffLeave_StaffLeave_Modal_SelectDate";
 
 const notify = (toastMsg: string) => toast.success(toastMsg);
 
@@ -12,7 +15,14 @@ export default function StaffLeave_StaffLeave({
   handle_StaffLeave_Save,
   staffID,
   setStaffID,
+  selectLeaveDate,
+  setSelectLeaveDate,
+  globe_selectLeaveDate,
+  searchParams,
 }: any) {
+  const [showModal_Show, setShowModal_Show] = React.useState(false);
+  const handleOnClose = () => setShowModal_Show(false);
+
   function handle_Select_LeaveDate(staffID: string) {
     console.log("e.target.type", staffID);
     setStaffID(staffID);
@@ -53,6 +63,15 @@ export default function StaffLeave_StaffLeave({
 
       {individualStaffLeaveList &&
         individualStaffLeaveList.map((leaveInfo: any, key: number) => {
+          // leaveInfo.staffLeaveDate &&
+          //   setSelectLeaveDate(
+          //     moment(leaveInfo.staffLeaveDate).utcOffset(0).format("YYYY-MM-DD")
+          //   );
+          // globe_selectLeaveDate = moment(leaveInfo.staffLeaveDate)
+          //   .utcOffset(0)
+          //   .format("YYYY-MM-DD");
+          const staffLeaveDate =moment( leaveInfo.staffLeaveDate).utcOffset(0).format("YYYY-MM-DD")
+
           return (
             <div className="w-full flex flex-row space-x-2 border-0">
               <form
@@ -65,12 +84,9 @@ export default function StaffLeave_StaffLeave({
                     type="text"
                     name="LeaveDate"
                     id="LeaveDate"
-                    defaultValue={
-                      leaveInfo.staffLeaveDate &&
-                      moment(leaveInfo.staffLeaveDate)
-                        .utcOffset(0)
-                        .format("YYYY-MM-DD")
-                    }
+                    defaultValue={staffLeaveDate}
+                    //
+                    // }
                     onClick={(e) => {
                       handle_Select_LeaveDate(e.currentTarget.value);
                     }}
@@ -90,9 +106,10 @@ export default function StaffLeave_StaffLeave({
                     type="button"
                     className="w-[50px]  h-[50px] border hover:bg-gray-400 text-gray-800 font-bold py-2 px-2 rounded  items-center"
                     value={leaveInfo.staff_o2b2_ID.toString()}
-                    onClick={(e) => {
-                      handle_Select_LeaveDate(e.currentTarget.value);
-                    }}
+                    // onClick={(e) => {
+                    //   handle_Select_LeaveDate(e.currentTarget.value);
+                    // }}
+                    onClick={() => setShowModal_Show(true)}
                   >
                     {" "}
                     cal
@@ -139,6 +156,17 @@ export default function StaffLeave_StaffLeave({
             </div>
           );
         })}
+
+      <div className=" absolute  ">
+        <StaffLeave_StaffLeave_Modal_SelectDate
+          handleOnClose={handleOnClose}
+          visible={showModal_Show}
+          staffID={staffID}
+          individualStaffLeaveList={individualStaffLeaveList}
+          selectLeaveDate={selectLeaveDate}
+          setSelectLeaveDate={setSelectLeaveDate}
+        />
+      </div>
     </div>
   );
 }

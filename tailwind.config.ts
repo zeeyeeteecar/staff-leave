@@ -13,6 +13,11 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+
+      gridTemplateColumns: {
+        // 24 column grid
+        "14": "repeat(14, minmax(0, 1fr))",
+      },
     },
   },
   plugins: [],

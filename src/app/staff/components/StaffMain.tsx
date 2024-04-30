@@ -3,7 +3,8 @@ import React from "react";
 
 import StaffLeave_StaffList from "./StaffLeave_StaffList";
 import StaffLeave_StaffLeave from "./StaffLeave_StaffLeave";
-import StaffLeave_StaffLeave_Month from "./StaffLeave_StaffLeave_Month";
+
+let globe_selectLeaveDate = "";
 
 export default function StaffMain({
   _staffList,
@@ -17,6 +18,8 @@ export default function StaffMain({
   ] = React.useState([]);
 
   const [staffID, setStaffID] = React.useState("");
+
+  const [selectLeaveDate, setSelectLeaveDate] = React.useState("");
 
   return (
     <div className="w-full h-full flex flex-row border-blue-300 bg-white border-0 space-x-3 ">
@@ -41,17 +44,26 @@ export default function StaffMain({
           handle_StaffLeave_Save={handle_StaffLeave_Save}
           staffID={staffID}
           setStaffID={setStaffID}
+          selectLeaveDate={selectLeaveDate}
+          setSelectLeaveDate={setSelectLeaveDate}
+          globe_selectLeaveDate={globe_selectLeaveDate}
         />
       </div>
 
-      <div className="w-1/3">
+      {/* <div className="w-1/3">
         <div className="w-[500px] h-full border-4 border-purple-300">
           <StaffLeave_StaffLeave_Month
             staffID={staffID}
             individualStaffLeaveList={individualStaffLeaveList}
+
+            selectLeaveDate = {selectLeaveDate}
+                     setSelectLeaveDate = {setSelectLeaveDate}
+
+                     globe_selectLeaveDate={globe_selectLeaveDate}
+
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
